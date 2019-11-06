@@ -14,7 +14,7 @@ const time = hours + ":" + minutes + ":" + seconds; // this needs to be in every
 
 export let home =(req: Request, res: Response) => {
     let id = 0;
-        setInterval(() => {
+     setInterval(() => {
             const time = hours + ":" + minutes + ":" + seconds;
             res.write(`hello, welcome home.\n  the time is: ${time}\n`);
             res.write(`\n\n`)
@@ -28,7 +28,7 @@ export let home =(req: Request, res: Response) => {
 
 };
 //-----------------------------------------------------------------------------------------------------------^ home
-
+/*
 export let roomA =(req: Request, res: Response) => {
     let id = 0;
     setInterval( () => {
@@ -88,6 +88,6 @@ export let outside =(req: Request, res: Response) => {
         response.write(`id: -1\ndata: you left the house ${time}\n\n\n`);
         response.end();
     }).listen(5000);
+*/
 
-};
 //-----------------------------------------------------------------------------------------------------------^ outside

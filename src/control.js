@@ -14,6 +14,7 @@ var time = hours + ":" + minutes + ":" + seconds; // this needs to be in every t
 //let id = 0;
 //-----------------------------------------------------------------------------------------------------------^ counter
 exports.home = function (req, res) {
+    res.send(time);
     var id = 0;
     setInterval(function () {
         var time = hours + ":" + minutes + ":" + seconds;
@@ -27,55 +28,65 @@ exports.home = function (req, res) {
     }
 };
 //-----------------------------------------------------------------------------------------------------------^ home
-exports.roomA = function (req, res) {
-    var id = 0;
-    setInterval(function () {
-        res.write("you are in room A.\n  the time is: " + time + "\nid: " + id + "\n");
-        res.write("\n\n");
+/*
+export let roomA =(req: Request, res: Response) => {
+    let id = 0;
+    setInterval( () => {
+    res.write(`you are in room A.\n  the time is: ${time}\nid: ${id}\n`);
+    res.write(`\n\n`);
     }, 4000);
     id++;
-    if (id == 5) {
-        res.write("ok you're a sleep\n " + time);
+    if (id == 5){
+        res.write(`ok you're a sleep\n ${time}`);
         res.end();
     }
 };
 //-----------------------------------------------------------------------------------------------------------^ room a
-exports.roomB = function (req, res) {
-    var id = 0;
-    setInterval(function () {
-        res.write("you are in room B.\n  the time is: " + time + "\nid: " + id + "\n");
-        res.write("\n\n");
+
+
+export let roomB =(req: Request, res: Response) => {
+
+    let id = 0;
+    setInterval( () => {
+        res.write(`you are in room B.\n  the time is: ${time}\nid: ${id}\n`);
+        res.write(`\n\n`);
     }, 4000);
     id++;
-    if (id == 5) {
-        res.write("ok you're a sleep\n " + time);
+    if (id == 5){
+        res.write(`ok you're a sleep\n ${time}`);
         res.end();
     }
 };
 //-----------------------------------------------------------------------------------------------------------^ room b
-exports.roomC = function (req, res) {
-    var id = 0;
-    setInterval(function () {
-        res.write("you are in room C.\n  the time is: " + time + "\nid: " + id + "\n");
-        res.write("\n\n");
+
+
+export let roomC =(req: Request, res: Response) => {
+    let id = 0;
+    setInterval( () => {
+        res.write(`you are in room C.\n  the time is: ${time}\nid: ${id}\n`);
+        res.write(`\n\n`);
     }, 4000);
     id++;
     if (id == 5) {
-        res.write("ok you're a sleep\n " + time);
+        res.write(`ok you're a sleep\n ${time}`);
         res.end();
     }
 };
 //-----------------------------------------------------------------------------------------------------------^ room c
-exports.outside = function (req, res) {
-    http.createServer(function (request, response) {
+
+
+export let outside =(req: Request, res: Response) => {
+
+    http.createServer((request: Request, response: Response) => {
         response.writeHead(200, {
             Connection: 'keep-alive',
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache'
         });
+
         res.send("you are outside, see you next time"); // no info end SSE
-        response.write("id: -1\ndata: you left the house " + time + "\n\n\n");
+        response.write(`id: -1\ndata: you left the house ${time}\n\n\n`);
         response.end();
     }).listen(5000);
-};
+*/
 //-----------------------------------------------------------------------------------------------------------^ outside
