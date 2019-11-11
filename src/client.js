@@ -1,6 +1,6 @@
 "use strict";
 // Declare an EventSource
-var eventSource = new EventSource('http://localhost:5000/home');
+var eventSource = new EventSource('http://localhost:5000');
 var source2 = new EventSource('/countdown');
 // Handler for events without an event type specified
 eventSource.onmessage = function (e) {

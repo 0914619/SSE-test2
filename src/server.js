@@ -12,12 +12,15 @@ app.get("/", function (req, res) {
         "cache-control": "no-cache",
         "content-Type": "application/json",
     });
-    var data = {
-        message: "welcome",
-    };
+    var id = 0;
     setInterval(function () {
-        res.write(JSON.stringify(data));
-    }, 2000);
+        res.write("welcome\n id:" + id + " \n\n");
+        id++;
+        if (id > 10) {
+            res.write("id: -1\n are you a sleep? \n\n\n");
+            res.end();
+        }
+    }, 1000);
 });
 app.get("/countdown", function (req, res) {
     res.status(200).set({

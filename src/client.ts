@@ -1,5 +1,5 @@
 // Declare an EventSource
-const eventSource = new EventSource('http://localhost:5000/home');
+const eventSource = new EventSource('http://localhost:5000');
 const source2 = new EventSource('/countdown')
 
 // Handler for events without an event type specified

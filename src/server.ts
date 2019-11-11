@@ -8,12 +8,16 @@ app.get("/", (req: Request, res: Response) => {
         "cache-control": "no-cache",
         "content-Type": "application/json",
     });
-    const data = {
-        message: "welcome",
-    };
+    let id = 0;
     setInterval(() => {
-        res.write(JSON.stringify(data))
-    }, 2000)
+        res.write(`welcome\n id:${id} \n\n`)
+        id++;
+        if (id > 10){
+            res.write(`id: -1\n are you a sleep? \n\n\n`);
+            res.end();
+        }
+    }, 1000);
+
 });
 app.get("/countdown", (req: Request, res: Response) =>{
     res.status(200).set({
