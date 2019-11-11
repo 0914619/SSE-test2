@@ -1,29 +1,40 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = require('http');
-var controller = __importStar(require("./control"));
-var express = require('express');
-var app = express();
+var express_1 = __importDefault(require("express"));
+var app = express_1.default();
 app.get("/", function (req, res) {
-    res.send("welcome"); // default begin screen prints welcome
-});
-http.createServer(function (request, response) {
-    response.writeHead(200, {
-        Connection: 'keep-alive',
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache'
+    res.status(200).set({
+        "connection": "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "application/json",
     });
-    app.get('/home', controller.home);
-    //    app.get('/home/roomA', controller.roomA);
-    //    app.get('/home/roomB', controller.roomB);
-    //    app.get('/home/roomC', controller.roomC);
-    //    app.get('/outside', controller.outside);
+    var data = {
+        message: "welcome",
+    };
+    setInterval(function () {
+        res.write(JSON.stringify(data));
+    }, 2000);
 });
-app.listen(process.env.PORT || 5000, function () { return console.log("running at http://localhost:5000"); });
+app.get("/countdown", function (req, res) {
+    res.status(200).set({
+        "connection": "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "application/json",
+    });
+    countdown(res, 13);
+});
+function countdown(res, count) {
+    res.write("data: time left " + count + " \n\n");
+    if (count) {
+        setTimeout(function () { return countdown(res, count - 1); }, 1000);
+    }
+    else {
+        res.write("times up! \n\n");
+        res.end();
+    }
+}
+app.listen(5000, function () { return console.log("go to http://localhost:5000"); });

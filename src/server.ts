@@ -1,26 +1,37 @@
 const http = require('http');
-import * as controller from './control';
-import {Application, Response, Request} from "express";
-const express = require('express');
+import express, {Response, Request, Application} from "express";
 
-const app: Application = express();
-
+const app: Application  = express();
 app.get("/", (req: Request, res: Response) => {
-    res.send("welcome"); // default begin screen prints welcome
-});
-
-http.createServer((request: Request, response: Response) => {
-    response.writeHead(200, {
-        Connection: 'keep-alive',
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache'
+    res.status(200).set({
+        "connection": "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "application/json",
     });
-
-    app.get('/home', controller.home);
-//    app.get('/home/roomA', controller.roomA);
-//    app.get('/home/roomB', controller.roomB);
-//    app.get('/home/roomC', controller.roomC);
-//    app.get('/outside', controller.outside);
-
+    const data = {
+        message: "welcome",
+    };
+    setInterval(() => {
+        res.write(JSON.stringify(data))
+    }, 2000)
 });
-app.listen(process.env.PORT || 5000, () => console.log("running at http://localhost:5000"));
+app.get("/countdown", (req: Request, res: Response) =>{
+    res.status(200).set({
+        "connection": "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "application/json",
+    });
+countdown(res, 13)
+});
+function countdown(res: Response, count: number){
+    res.write(`data: time left ${count} \n\n`);
+    if (count){
+        setTimeout(() => countdown(res, count-1), 1000)
+    }
+    else {
+        res.write(`times up! \n\n`);
+        res.end();
+    }
+}
+
+app.listen(5000, () => console.log("go to http://localhost:5000"));
